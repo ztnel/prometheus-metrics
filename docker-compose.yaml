@@ -12,7 +12,7 @@ volumes:
 
 services:
   grafana:
-    image: grafana/grafana-arm64v8-linux:latest 
+    image: grafana/grafana:latest
     container_name: grafana
     restart: unless-stopped
     volumes:
