@@ -6,8 +6,9 @@ networks:
     driver: bridge
 
 volumes:
-  prometheus_data: {}
-  grafana_data: {}
+  prometheus-data:
+  grafana-data:
+  alertmanager-data:
 
 services:
   grafana:
@@ -18,7 +19,7 @@ services:
       - ./grafana/grafana.ini:/etc/grafana/grafana.ini
       - ./grafana/provisioning:/etc/grafana/provisioning
       - ./grafana/dashboards:/etc/grafana/dashboards
-      - grafana_data:/var/lib/grafana
+      - grafana-data:/var/lib/grafana
     ports:
       - 3000:3000
     networks:
@@ -32,12 +33,27 @@ services:
     environment:
       - PROMETHEUS_DISABLE_CREATED_SERIES=True
     volumes:
-      - prometheus_data:/prometheus
+      - prometheus-data:/prometheus
       - ./prometheus:/etc/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yaml'
       - '--storage.tsdb.path=/prometheus'
       - '--storage.tsdb.retention.time=200h'
+    networks:
+      - monitor
+    labels:
+      org.label-schema.group: "monitor"
+  alertmanager:
+    image: prom/alertmanager:latest
+    container_name: alertmanager
+    restart: unless-stopped
+    volumes:
+      - "./alertmanager:/config"
+      - alertmanager-data:/data
+    command:
+      - '--config.file=/config/alertmanager.yml --log.level=debug'
+    ports:
+      - "9093:9093"
     networks:
       - monitor
     labels:
