@@ -1,0 +1,19 @@
+route:
+  group_by: [ alertname ]
+  receiver: 'discord' # default receiver
+  repeat_interval: 24h
+  routes:
+    - receiver: 'discord'
+      repeat_interval: 12h
+      matchers:
+        - severity="medium"
+
+    - receiver: 'discord'
+      repeat_interval: 4h
+      matchers:
+        - severity="high"
+receivers:
+  - name: 'discord'
+    webhook_configs:
+      - url: "https://discord.com/api/webhooks/980508568048521336/tKqc8OvCn4_0slDCAJP_D2111VB2rVIdR40s2ubS0BvuK5RjP1obrMFILjFPiug5itbX"
+        send_resolved: true
