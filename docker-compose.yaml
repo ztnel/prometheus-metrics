@@ -8,7 +8,7 @@ networks:
 volumes:
   prometheus-data:
   grafana-data:
-  alertmanager-data:
+  # alertmanager-data:
 
 services:
   grafana:
@@ -46,22 +46,22 @@ services:
       - monitor
     labels:
       org.label-schema.group: "monitor"
-  alertmanager:
-    image: prom/alertmanager:latest
-    container_name: alertmanager
-    restart: unless-stopped
-    volumes:
-      - ./alertmanager:/config
-      - alertmanager-data:/data
-    command:
-      - '--config.file=/config/alertmanager.yaml'
-      - '--log.level=debug'
-    ports:
-      - "9093:9093"
-    networks:
-      - monitor
-    labels:
-      org.label-schema.group: "monitor"
+  # alertmanager:
+  #   image: prom/alertmanager:latest
+  #   container_name: alertmanager
+  #   restart: unless-stopped
+  #   volumes:
+  #     - ./alertmanager:/config
+  #     - alertmanager-data:/data
+  #   command:
+  #     - '--config.file=/config/alertmanager.yaml'
+  #     - '--log.level=debug'
+  #   ports:
+  #     - "9093:9093"
+  #   networks:
+  #     - monitor
+  #   labels:
+  #     org.label-schema.group: "monitor"
   main:
     container_name: main
     build:
