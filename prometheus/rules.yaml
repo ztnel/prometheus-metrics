@@ -3,7 +3,7 @@ groups:
   - name: DemoAlerts
     rules:
       - alert: InstanceDown 
-        expr: up{job="services"} < 1 
+        expr: up{job="main"} < 1 
         for: 1m
         labels:
           severity: low
@@ -11,7 +11,7 @@ groups:
           summary: 'Alert with low severity.'
 
       - alert: InstanceDownCritical
-        expr: up{job="services"} < 1 
+        expr: up{job="main"} < 1 
         for: 1m 
         labels:
           severity: high

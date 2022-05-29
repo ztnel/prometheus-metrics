@@ -6,7 +6,7 @@ global:
 
 # Rules and alerts are read from the specified file(s)
 rule_files:
-  - rules.yml
+  - rules.yaml
 
 # Alerting specifies settings related to the Alertmanager
 alerting:
@@ -25,4 +25,6 @@ scrape_configs:
   - job_name: 'main'
     scrape_interval: 5s
     static_configs:
-      - targets: ['main:8000']
+      - targets: 
+        - 'main:8000'
+        - 'idonotexists:564'

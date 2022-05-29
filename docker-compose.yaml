@@ -39,6 +39,9 @@ services:
       - '--config.file=/etc/prometheus/prometheus.yaml'
       - '--storage.tsdb.path=/prometheus'
       - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+    ports:
+      - 9000:9090
     networks:
       - monitor
     labels:
@@ -48,10 +51,11 @@ services:
     container_name: alertmanager
     restart: unless-stopped
     volumes:
-      - "./alertmanager:/config"
+      - ./alertmanager:/config
       - alertmanager-data:/data
     command:
-      - '--config.file=/config/alertmanager.yml --log.level=debug'
+      - '--config.file=/config/alertmanager.yaml'
+      - '--log.level=debug'
     ports:
       - "9093:9093"
     networks:
