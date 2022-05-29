@@ -88,7 +88,7 @@
           {
             "evaluator": {
               "params": [
-                30
+                20
               ],
               "type": "gt"
             },
@@ -98,19 +98,19 @@
             "query": {
               "params": [
                 "B",
-                "5m",
+                "1m",
                 "now"
               ]
             },
             "reducer": {
               "params": [],
-              "type": "max"
+              "type": "avg"
             },
             "type": "query"
           }
         ],
         "executionErrorState": "alerting",
-        "for": "5m",
+        "for": "0m",
         "frequency": "10s",
         "handler": 1,
         "message": "Temperature exceeded safety threshold",
@@ -262,5 +262,5 @@
   "variables": {
     "list": []
   },
-  "version": 4
+  "version": 2
 }
